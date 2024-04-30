@@ -14,7 +14,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  webAppName: 'CC-Project-Devops'
+  webAppName: 'mohannadtazi-dotnetcore-webapp-DevOps-0144b709-2a5d-40a1-9277-d3b5df26b8b0'
   azureSubscription: 'ServiceConnection-Automatic' # You can use Azure Resource Manager service connection to authenticate to Azure
 
 
@@ -51,4 +51,3 @@ steps:
     azureSubscription: '$(azureSubscription)'
     appType: 'webApp'
     WebAppName: '$(webAppName)'
-    packageForLinux: '$(build.artifactStagingDirectory)\WebApp.zip'
