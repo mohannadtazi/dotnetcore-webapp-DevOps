@@ -49,9 +49,10 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-- task: AzureRmWebAppDeployment@4
+
+- task: PublishBuildArtifacts@1
   inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: '$(azureSubscription)'
-    appType: 'webApp'
-    WebAppName: '$(webAppName)'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+    StoreAsTar: true
