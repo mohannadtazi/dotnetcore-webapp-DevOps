@@ -11,7 +11,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
+  solution: 'D:\a\1\s\dotnetcore-webapp.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   webAppName: 'mohannadtazi-dotnetcore-webapp-DevOps-0144b709-2a5d-40a1-9277-d3b5df26b8b0'
