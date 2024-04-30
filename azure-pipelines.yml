@@ -3,7 +3,6 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
-
 trigger:
 - main
 
@@ -16,7 +15,6 @@ variables:
   buildConfiguration: 'Release'
   webAppName: 'mohannadtazi-dotnetcore-webapp-DevOps-0144b709-2a5d-40a1-9277-d3b5df26b8b0'
   azureSubscription: 'ServiceConnection-Automatic' # You can use Azure Resource Manager service connection to authenticate to Azure
-
 
 steps:
 - task: NuGetToolInstaller@1
@@ -31,19 +29,25 @@ steps:
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
- 
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: '**\bin\$(buildConfiguration)\**\*.Tests.dll' # Adjust this pattern based on your test project naming convention
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    OverWrite: true
+
 - task: VSTest@2
   inputs:
+    testAssemblyVer2: |
+      **\*.Tests.dll
+      !**\obj\**
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
-
 
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
-
-
 
 - task: AzureRmWebAppDeployment@4
   inputs:
